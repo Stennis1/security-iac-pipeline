@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Installing dependencies..."
+      - yum install -y jq curl
+  build:
+    commands:
+      - echo "Checking if API key is injected..."
+      - if [ -z "$CONFORMITY_API_KEY" ]; then echo "❌ API key not found"; exit 1; else echo "✅ API key is available"; fi
+      - echo "Running Conformity Template Scanner..."
+      - |
+        curl -X POST \
+          -H "Authorization: ApiKey $CONFORMITY_API_KEY" \
+          -H "Content-Type: application/json" \
+          -d @template.json \
+          https://conformity.trendmicro.com/api/template-scanner/scan \
+          | jq .
