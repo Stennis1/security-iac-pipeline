@@ -3,8 +3,7 @@ version: 0.2
 phases:
   install:
     commands:
-      - echo "Installing dependencies..."
-      - yum install -y jq curl
+      - echo "Dependencies already available"
   build:
     commands:
       - echo "Checking if API key is injected..."
