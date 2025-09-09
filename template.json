@@ -1,11 +1,12 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Test CloudFormation template for Conformity scan",
+  "Description": "Test insecure S3 bucket",
   "Resources": {
     "TestBucket": {
       "Type": "AWS::S3::Bucket",
       "Properties": {
-        "BucketName": "test-bucket-for-conformity-scan"
+        "BucketName": "test-bucket-for-conformity-scan",
+        "AccessControl": "PublicRead"
       }
     }
   }
