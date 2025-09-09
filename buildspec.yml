@@ -1,18 +1,38 @@
 version: 0.2
 
 phases:
-  install:
-    commands:
-      - echo "Dependencies already available"
   build:
     commands:
-      - echo "Checking if API key is injected..."
-      - if [ -z "$CONFORMITY_API_KEY" ]; then echo "❌ API key not found"; exit 1; else echo "✅ API key is available"; fi
-      - echo "Running Conformity Template Scanner..."
+      - echo "🔍 Running Conformity Template Scanner..."
       - |
-        curl -X POST \
+        RESPONSE=$(curl -s -X POST \
           -H "Authorization: ApiKey $CONFORMITY_API_KEY" \
           -H "Content-Type: application/json" \
           -d @template.json \
-          https://conformity.trendmicro.com/api/template-scanner/scan \
-          | jq .
+          https://conformity.trendmicro.com/api/template-scanner/scan)
+
+        # Print full JSON (debugging)
+        echo "---- Raw Response ----"
+        echo "$RESPONSE" | jq .
+
+        # Print summary table with severity
+        echo "---- Violation Summary ----"
+        echo "$RESPONSE" | jq -r '
+          if (.violations | length) > 0 then
+            ["Severity","RuleId","Message"],
+            (.violations[] | [.severity, .ruleId, .message])
+          else
+            ["No violations found","",""]
+          end
+          | @tsv
+        ' | column -t -s $'\t'
+
+        # Count High severity violations
+        HIGH_COUNT=$(echo "$RESPONSE" | jq '[.violations[] | select(.severity == "HIGH")] | length')
+
+        if [ "$HIGH_COUNT" -gt 0 ]; then
+          echo "Found $HIGH_COUNT HIGH severity violation(s). Failing build."
+          exit 1
+        else
+          echo "No HIGH severity violations. Build passes."
+        fi
