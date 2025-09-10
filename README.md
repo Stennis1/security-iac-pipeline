@@ -45,7 +45,7 @@ The pipeline is built with **AWS CodePipeline** and has the following stages:
 ---
 
 ## 🎨 Architecture Diagram
-![diagram](Security-In-IaC-Pipeline.png)
+![High Level Architecture Diagram](./diagram/Security-In-IaC-Pipeline.png)
 
 ## 📝 Files
 
