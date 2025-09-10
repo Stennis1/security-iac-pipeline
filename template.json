@@ -5,7 +5,7 @@
     "FeatureTestBucket": {
       "Type": "AWS::S3::Bucket",
       "Properties": {
-        "BucketName": "Test-CodePipeline",
+        "BucketName": "Test-CodePipeline-Project",
         "AccessControl": "Private",
         "VersioningConfiguration": { "Status": "Disabled" },
         "PublicAccessBlockConfiguration": {
