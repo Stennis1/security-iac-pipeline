@@ -5,7 +5,7 @@
     "TestBucket": {
       "Type": "AWS::S3::Bucket",
       "Properties": {
-        "BucketName": "room5-cloudone-bucket-test-for-conformity-scan",
+        "BucketName": "room5-sample-cloudone-indira-esi",
         "AccessControl": "PublicRead"
       }
     }
