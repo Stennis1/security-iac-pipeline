@@ -1,5 +1,5 @@
 {
-  "failOnSeverity": "LOW",
+  "failOnSeverity": "MEDIUM",
   "scan": {
     "enabled": true,
     "outputFormat": "json"
@@ -11,5 +11,8 @@
   "frameworks": {
     "terraform": { "templateFilesPattern": "**/*(*.tf|*.tfvars)" },
     "cloudformation": { "templateFilesPattern": "**/*(*.yml|*.yaml|*.json)" }
+  },
+  "settings": {
+    "failOnSeverity": "MEDIUM"
   }
 }
