@@ -1,13 +1,23 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Test insecure S3 bucket",
+  "Description": "Test S3 bucket for feature branch CI/CD",
   "Resources": {
-    "TestBucket": {
+    "FeatureTestBucket": {
       "Type": "AWS::S3::Bucket",
       "Properties": {
-        "BucketName": "test-bucket-for-conformity-scan",
-        "AccessControl": "PublicRead"
+        "BucketName": "Test-CodePipeline",
+        "AccessControl": "Private",
+        "VersioningConfiguration": { "Status": "Disabled" },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true
+        }
       }
     }
+  },
+  "Outputs": {
+    "BucketName": { "Description": "Bucket name", "Value": { "Ref": "FeatureTestBucket" } }
   }
 }
