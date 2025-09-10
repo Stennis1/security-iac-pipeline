@@ -5,7 +5,7 @@
     "TestBucket": {
       "Type": "AWS::S3::Bucket",
       "Properties": {
-        "BucketName": "test-bucket-for-conformity-scan",
+        "BucketName": "room5-cloudone-bucket-test-for-conformity-scan",
         "AccessControl": "PublicRead"
       }
     }
