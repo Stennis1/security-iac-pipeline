@@ -1,13 +1,35 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "Test insecure S3 bucket",
+  "Description": "Test secure S3 bucket (ephemeral)",
   "Resources": {
     "TestBucket": {
       "Type": "AWS::S3::Bucket",
       "Properties": {
-        "BucketName": "room5-sample-cloudone-indira-esi",
-        "AccessControl": "PublicRead"
+        "BucketName": {
+          "Fn::Sub": "room5-sample-cloudone-indira-esi-${AWS::AccountId}-${AWS::Region}"
+        },
+        "OwnershipControls": {
+          "Rules": [
+            {
+              "ObjectOwnership": "BucketOwnerEnforced"
+            }
+          ]
+        },
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true
+        }
       }
+    }
+  },
+  "Outputs": {
+    "TestBucketName": {
+      "Value": {
+        "Ref": "TestBucket"
+      },
+      "Description": "The name of the ephemeral S3 bucket created for CodePipeline"
     }
   }
 }

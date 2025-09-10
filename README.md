@@ -38,11 +38,19 @@ The pipeline is built with **AWS CodePipeline** and has the following stages:
    - Uses CloudFormation to create/update a stack (`TestStack` or a chosen name).
    - Provides outputs such as the bucket name.
 
+> ⚠️  **NOTE:**  
+> - **CloudOne Conformity** must be integrated to GitHub and AWS account in your Account **(Integrations)**.
+> - GitHub app must be added to your AWS environment for synchronization.
+
 ---
+
+## 🎨 Architecture Diagram
+![diagram](Security-In-IaC-Pipeline.png)
 
 ## 📝 Files
 
 ### `template.json`
+
 A CloudFormation template that defines AWS resources (currently an S3 bucket):
 
 ```json
